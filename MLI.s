@@ -97,7 +97,7 @@ RD_TO_MAIN  LDA #$04
             STA MLIPARAMS       ; Params count
             LDA REF             ; get reference number returned by open
             STA MLIPARAMS+1     ; and put in for read
-            >WRT_MAIN
+            >WRT_P1
             >MLI_CALL #$CA      ; read command
             RTS
 *--------------------------------------
@@ -105,7 +105,7 @@ RD_TO_AUX   LDA #$04
             STA MLIPARAMS
             LDA REF             ; get reference number returned by open
             STA MLIPARAMS+1     ; and put in for read
-            >WRT_AUX
+            >WRT_P1X
             >MLI_CALL #$CA      ; read command
             RTS
 *--------------------------------------

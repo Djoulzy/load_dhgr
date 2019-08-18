@@ -5,7 +5,7 @@ NEW
             .LIST OFF
 *--------------------------------------
 DHGR2_CLR   PHA
-            >WRT_AUX        ;Select MAIN memory
+            >WRT_P1X         ;Select MAIN memory
             LDY #$02        ;Counter for MAIN/AUX
 .21         LDX #$00        ;Start at byte 0
 .22         STA $2000,X
@@ -44,11 +44,11 @@ DHGR2_CLR   PHA
             BNE .22
             LSR             ;Turn 55 into 2A otherwise do nothing
             DEY
-            >WRT_MAIN       ;Now do it all over again
+            >WRT_P1         ;Now do it all over again
             BNE .21         ;in AUX memory
 
             PLA
-            >WRT_AUX        ;Select MAIN memory
+            >WRT_P1X        ;Select MAIN memory
             LDY #$02        ;Counter for MAIN/AUX
 .24         LDX #$00        ;Start at byte 0
 .23         STA $4000,X
@@ -87,7 +87,7 @@ DHGR2_CLR   PHA
             BNE .23
             LSR             ;Turn 55 into 2A otherwise do nothing
             DEY
-            >WRT_MAIN       ;Now do it all over again
+            >WRT_P1         ;Now do it all over again
             BNE .24         ;in AUX memory
             RTS
 *--------------------------------------

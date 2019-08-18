@@ -28,13 +28,13 @@ COL80_OFF	.EQ $C00C
 COL80_ON	.EQ $C00D
 VBL			.EQ	$C019
 *--------------------------------------
-			.MA WRT_MAIN
+			.MA WRT_P1
 			STA STORE80_OFF
 			STA RAMRD_OFF
 			STA RAMWRT_OFF
 			.EM
 *--------------------------------------
-			.MA WRT_AUX
+			.MA WRT_P1X
 			STA STORE80_ON
 			STA PAGE2_ON
 			STA RAMRD_OFF
