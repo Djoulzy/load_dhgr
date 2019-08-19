@@ -29,16 +29,11 @@ COL80_ON	.EQ $C00D
 VBL			.EQ	$C019
 *--------------------------------------
 			.MA WRT_P1
-			STA STORE80_OFF
-			STA RAMRD_OFF
-			STA RAMWRT_OFF
+			STA PAGE2_OFF
 			.EM
 *--------------------------------------
 			.MA WRT_P1X
-			STA STORE80_ON
 			STA PAGE2_ON
-			STA RAMRD_OFF
-			STA RAMWRT_OFF
 			.EM
 *--------------------------------------
 			.MA RELOC2AUX		; P1: Adresse debut, P2: Adresse fin

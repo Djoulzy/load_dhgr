@@ -37,6 +37,7 @@ PTR         .EQ $46
 			STA FULLON			;Turn on Full screen
 			STA DHGR_ON			;Turn on DHR
 			STA COL80_ON		;Turn on 80 Columns
+			STA STORE80_ON
 			.EM
 *--------------------------------------
 			.MA SWITCH_PAGE

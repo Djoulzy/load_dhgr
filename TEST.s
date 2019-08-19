@@ -38,7 +38,8 @@ SLEEP       LDA #$20
             BNE .11
             RTS
 
-LOOP        STA PAGE2_ON ;Show PAGE 2
+LOOP        STA STORE80_OFF
+            STA PAGE2_ON ;Show PAGE 2
             JSR SLEEP
             STA PAGE2_OFF ;Show PAGE 1
             JSR SLEEP
