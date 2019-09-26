@@ -5,7 +5,7 @@ AUTO 4,1
             .OP	65C02
 *--------------------------------------
 MLIADDR     .EQ $BF00
-IOBUFF      .EQ $1000
+IOBUFF      .EQ $6000
 *--------------------------------------
 MLI         JSR MLIADDR         ; call ProDOS
             .BS 1               ; command number
@@ -97,7 +97,6 @@ RD_TO_MAIN  LDA #$04
             STA MLIPARAMS       ; Params count
             LDA REF             ; get reference number returned by open
             STA MLIPARAMS+1     ; and put in for read
-            >WRT_P1
             >MLI_CALL #$CA      ; read command
             RTS
 *--------------------------------------
@@ -105,8 +104,16 @@ RD_TO_AUX   LDA #$04
             STA MLIPARAMS
             LDA REF             ; get reference number returned by open
             STA MLIPARAMS+1     ; and put in for read
-            >WRT_P1X
-            >MLI_CALL #$CA      ; read command
+            LDA #$CA              ; open command
+            STA MLI+3
+            CLC
+            STA RAMWRT_ON
+            JSR MLI
+            BCC .1
+            LDX #$EE
+			LDY #$CA
+            BRK
+.1          STA RAMWRT_OFF
             RTS
 *--------------------------------------
 MAN

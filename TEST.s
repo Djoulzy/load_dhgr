@@ -9,7 +9,7 @@ AUTO 4,1
             .INB /DEV/LOAD.DHGR/MEM.S
             .INB /DEV/LOAD.DHGR/MLI.S
 			.INB /DEV/LOAD.DHGR/DHGR.INIT.S
-			.INB /DEV/LOAD.DHGR/DHGR.CLR.S
+*			.INB /DEV/LOAD.DHGR/DHGR.CLR.S
 *--------------------------------------
 REF         .HS 00              ; ProDOS reference number
 OBJMEMLOC   .EQ $0800
@@ -50,32 +50,38 @@ LOAD_PAGE1
             .HS 16
             .AS "/DEV/IMG/MONSTRE1.A2FC"
             >SET_RW_PARAMS READBUFF1,#$00,#$20
-            JSR RD_TO_AUX
+            STA STORE80_ON
+            STA PAGE2_ON
+            JSR RD_TO_MAIN
+            STA PAGE2_OFF
+            STA STORE80_OFF
             >SET_RW_PARAMS READBUFF1,#$00,#$20
             JSR RD_TO_MAIN
             JSR CLOSE
             RTS
 
 LOAD_PAGE2
-            STA PAGE2_ON ;Show PAGE 2
+*            STA PAGE2_ON ;Show PAGE 2
             JSR OPEN
             .HS 16
             .AS "/DEV/IMG/MONSTRE2.A2FC"
-*            >SET_RW_PARAMS READBUFF2,#$00,#$20
-*            JSR RD_TO_AUX
+            >SET_RW_PARAMS READBUFF2,#$00,#$20
+            JSR RD_TO_AUX
             >SET_RW_PARAMS READBUFF2,#$00,#$20
             JSR RD_TO_MAIN
             JSR CLOSE
-
-            STA PAGE2_ON ;Show PAGE 2
             RTS
 *--------------------------------------
 RUN
             >GODHGR2
-            LDA #$00
-            JSR DHGR2_CLR
+
+            STA STORE80_OFF
+
+*            LDA #$00
+*            JSR DHGR2_CLR
             JSR LOAD_PAGE1
-*            JMP LOOP
+            JSR LOAD_PAGE2
+            JMP LOOP
             BRK
 *--------------------------------------
 MAN
